@@ -25,6 +25,9 @@ func (service *ShowVideoService) Show(id string) serializer.Response {
 		}
 	}
 
+	//处理视频被观看的一系问题
+	video.AddView()
+
 	return serializer.Response{
 		Data: serializer.BuildVideo(video),
 	}

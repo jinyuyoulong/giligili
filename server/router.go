@@ -50,6 +50,7 @@ func NewRouter() *gin.Engine {
 		v1.DELETE("/video/:id", api.DeleteVideo)
 
 		v1.POST("/upload/token", api.UploadToken)
+		v1.GET("/rank/daily",api.RankDaily)
 	}
 	return r
 }

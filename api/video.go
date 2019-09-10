@@ -48,3 +48,7 @@ func DeleteVideo(c *gin.Context) {
 	res := service.Delete(c.Param("id"))
 	c.JSON(200, res)
 }
+
+func RankDaily(c *gin.Context) {
+
+}
