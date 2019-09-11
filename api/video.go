@@ -50,5 +50,7 @@ func DeleteVideo(c *gin.Context) {
 }
 
 func RankDaily(c *gin.Context) {
-
+	rankService := service.DailyRankService{}
+	response := rankService.Get()
+	c.JSON(200,response)
 }

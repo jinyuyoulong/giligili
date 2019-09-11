@@ -11,6 +11,7 @@ require (
 	github.com/google/uuid v1.1.1
 	github.com/jinzhu/gorm v1.9.10
 	github.com/joho/godotenv v1.3.0
+	github.com/robfig/cron/v3 v3.0.0
 	github.com/satori/go.uuid v1.2.0 // indirect
 	golang.org/x/crypto v0.0.0-20190325154230-a5d413f7728c
 	gopkg.in/go-playground/validator.v8 v8.18.2
