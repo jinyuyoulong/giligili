@@ -11,6 +11,7 @@ import (
 var Cron *cron.Cron
 
 func Run(job func () error) {
+	println("run")
 	// 获得job 执行的时间差
 	from := time.Now().UnixNano()
 	err := job()
@@ -24,11 +25,11 @@ func Run(job func () error) {
 	}
 }
 func CronJob()  {
-	if Cron == nil{
-		Cron = cron.New()
+	if Cron == nil {
+		Cron = cron.New(cron.WithSeconds())
 	}
 
-	Cron.AddFunc("0 0 0 * * *", func() {
+	Cron.AddFunc("*/1 * * * * *", func() {
 		Run(RestartDailyRank)
 	})
 	Cron.Start()

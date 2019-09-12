@@ -21,5 +21,6 @@ func Init()  {
 	model.Database(os.Getenv("MYSQL_DSN"))
 	cache.Redis()
 
+	// 开启定时任务
 	tasks.CronJob()
 }
