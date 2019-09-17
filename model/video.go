@@ -14,6 +14,7 @@ type Video struct {
 	Info   string
 	URL    string
 	Avatar string
+	UserID uint
 }
 
 // AvatarURL 实现签名,私有访问

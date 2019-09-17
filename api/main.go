@@ -20,7 +20,15 @@ func Ping(c *gin.Context) {
 
 // 获取当前用户
 func CurrentUser(c *gin.Context) *model.User {
-	return &model.User{}
+
+	if user, _ := c.Get("user"); user != nil {
+
+		// 断言，转为user类型指针
+		if u, ok := user.(*model.User); ok {
+			return u
+		}
+	}
+	return nil
 }
 
 func ErrorResponse(err error) serializer.Response {

@@ -27,3 +27,4 @@ func (service *UserLoginService) Login() (model.User, *serializer.Response) {
 	}
 	return user, nil
 }
+

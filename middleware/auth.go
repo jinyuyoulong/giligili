@@ -7,7 +7,17 @@ import (
 )
 
 func CurrentUser() gin.HandlerFunc {
-	return func(c *gin.Context) {}
+	
+	return func(c *gin.Context) {
+		uid, _ := c.Cookie("user_id")
+		if uid != "" {
+			user, err := model.GetUser(uid)
+			if err == nil{
+				c.Set("user",&user)
+			}
+		}
+		c.Next()
+	}
 }
 
 func AuthRequired() gin.HandlerFunc {

@@ -31,6 +31,7 @@ func GetUser(ID interface{}) (User, error) {
 	return user, result.Error
 }
 
+// 加密密码
 func (user *User) SetPassword(password string) error {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), PassWordCost)
 	if err != nil {

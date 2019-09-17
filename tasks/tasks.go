@@ -26,10 +26,14 @@ func Run(job func () error) {
 }
 func CronJob()  {
 	if Cron == nil {
-		Cron = cron.New(cron.WithSeconds())
+		//Cron = cron.New(cron.WithSeconds())
+		Cron = cron.New()
 	}
 
-	Cron.AddFunc("*/1 * * * * *", func() {
+	//Cron.AddFunc("*/1 * * * * *", func() {
+	//	Run(RestartDailyRank)
+	//})
+	Cron.AddFunc("* * */1 * *", func() {
 		Run(RestartDailyRank)
 	})
 	Cron.Start()
