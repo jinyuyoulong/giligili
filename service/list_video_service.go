@@ -8,11 +8,6 @@ import (
 
 // 视频列表服务
 type ListVideoService struct {
-	// binging 绑定 required 必填 mix rune 的 数量
-	//Title string `from:"title" json:"title" binding:"required,min=2,max=100"`
-	//Info  string `from:"info" json:"info" binding:"max=3000"`
-	//URL   string `from:"url" json:"url" binding:"max=3000"`
-
 	Limit int `form:"limit"`
 	Start int `form:"start"`
 }
