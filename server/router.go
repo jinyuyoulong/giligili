@@ -32,7 +32,7 @@ func NewRouter() *gin.Engine {
 		// 视频删除
 
 		v1.POST("/user/login", api.UserLogin)
-		v1.POST("/user/register",api.UserRegister)
+		v1.POST("/user/register", api.UserRegister)
 
 		authed := r.Group("/")
 		// 需要登录保护的
@@ -41,17 +41,17 @@ func NewRouter() *gin.Engine {
 			//	user routing
 			authed.GET("user/me", api.UserMe)
 			authed.DELETE("user/logout", api.UserLogout)
-		//	视频操作
+			//	视频操作
 			authed.DELETE("video/:id", api.DeleteVideo)
 			authed.PUT("video/:id", api.UpdateVideo)
 		}
 
-		v1.POST("/videos", api.CreateVideo)
-		v1.GET("/video/:id", api.ShowVideo)
-		v1.GET("/videos", api.ListVideo)
+		v1.POST("videos", api.CreateVideo)
+		v1.GET("video/:id", api.ShowVideo)
+		v1.GET("videos", api.ListVideo)
 
-		v1.POST("/upload/token", api.UploadToken)
-		v1.GET("/rank/daily",api.RankDaily)
+		v1.POST("upload/token", api.UploadToken)
+		v1.GET("rank/daily", api.RankDaily)
 	}
 	return r
 }

@@ -8,7 +8,22 @@ type Response struct {
 	Error  string      `json:"error"` // 代码层面的报错，release 关闭，测试时打开
 }
 
+// 有追踪信息的错误响应
 type TrackedErrorResponse struct {
 	Response
 	TrackID string `json:"track_id"`
+}
+
+type DataList struct {
+	Total uint        `json:"total"`
+	Items interface{} `json:"items"`
+}
+
+func BuildListResponse(items interface{}, tatol uint) Response {
+	return Response{
+		Data: DataList{
+			Total: tatol,
+			Items: items,
+		},
+	}
 }

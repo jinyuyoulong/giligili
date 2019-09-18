@@ -6,6 +6,7 @@ package api
 // service:接收事情，处理事情；
 
 import (
+	"fmt"
 	"giligili/service"
 	"github.com/gin-gonic/gin"
 )
@@ -28,9 +29,16 @@ func ShowVideo(c *gin.Context) {
 
 func ListVideo(c *gin.Context) {
 	service := service.ListVideoService{}
+	param := c.Param("limit")
+	fmt.Printf("limit%v", param)
 
-	res := service.ListVideo()
-	c.JSON(200, res)
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.List()
+		c.JSON(200, res)
+	} else {
+		c.JSON(200, ErrorResponse(err))
+	}
+
 }
 
 func UpdateVideo(c *gin.Context) {
@@ -52,5 +60,5 @@ func DeleteVideo(c *gin.Context) {
 func RankDaily(c *gin.Context) {
 	rankService := service.DailyRankService{}
 	response := rankService.Get()
-	c.JSON(200,response)
+	c.JSON(200, response)
 }

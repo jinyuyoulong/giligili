@@ -10,7 +10,7 @@ import (
 
 var Cron *cron.Cron
 
-func Run(job func () error) {
+func Run(job func() error) {
 	println("run")
 	// 获得job 执行的时间差
 	from := time.Now().UnixNano()
@@ -18,13 +18,13 @@ func Run(job func () error) {
 	// 获得job 执行的时间差
 	to := time.Now().UnixNano()
 	jobName := runtime.FuncForPC(reflect.ValueOf(job).Pointer()).Name()
-	if err != nil{
+	if err != nil {
 		fmt.Printf("%s error:%dms\n", jobName, (to-from)/int64(time.Millisecond))
-	}else {
+	} else {
 		fmt.Printf("%s success:%dms\n", jobName, (to-from)/int64(time.Millisecond))
 	}
 }
-func CronJob()  {
+func CronJob() {
 	if Cron == nil {
 		//Cron = cron.New(cron.WithSeconds())
 		Cron = cron.New()
@@ -33,7 +33,7 @@ func CronJob()  {
 	//Cron.AddFunc("*/1 * * * * *", func() {
 	//	Run(RestartDailyRank)
 	//})
-	Cron.AddFunc("* * */1 * *", func() {
+	Cron.AddFunc("0 0 * * *", func() {
 		Run(RestartDailyRank)
 	})
 	Cron.Start()
