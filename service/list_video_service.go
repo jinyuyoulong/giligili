@@ -13,8 +13,8 @@ type ListVideoService struct {
 	//Info  string `from:"info" json:"info" binding:"max=3000"`
 	//URL   string `from:"url" json:"url" binding:"max=3000"`
 
-	Limit int `from:"limit"`
-	Start int `from:"start"`
+	Limit int `form:"limit"`
+	Start int `form:"start"`
 }
 
 // 视频创建
@@ -33,7 +33,7 @@ func (service *ListVideoService) List() serializer.Response {
 	//return serializer.Response{
 	//	Data: serializer.BuildVideos(videos),
 	//}
-	fmt.Printf("limit:%d", service.Limit)
+	fmt.Printf("limit:%d",service.Limit)
 
 	var videos []model.Video
 	total := 0
@@ -44,19 +44,19 @@ func (service *ListVideoService) List() serializer.Response {
 
 	if err := model.DB.Model(model.Video{}).Count(&total).Error; err != nil {
 		return serializer.Response{
-			Status: 50000,
-			Msg:    "数据库连接错误",
-			Error:  err.Error(),
+			Status:50000,
+			Msg:"数据库连接错误",
+			Error:err.Error(),
 		}
 	}
 
 	if err := model.DB.Limit(service.Limit).Offset(service.Start).Find(&videos).Error; err != nil {
 		return serializer.Response{
-			Status: 50000,
-			Msg:    "数据库连接错误",
-			Error:  err.Error(),
+			Status:50000,
+			Msg:"数据库连接错误",
+			Error:err.Error(),
 		}
 	}
 
-	return serializer.BuildListResponse(serializer.BuildVideos(videos), uint(total))
+	return serializer.BuildListResponse(serializer.BuildVideos(videos),uint(total))
 }
