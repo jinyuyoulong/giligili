@@ -15,5 +15,6 @@
 .env
 go.sum
 giligili
-
+fabfile.py
+docker-compose.yml
 # 配置数据库参数，不能传到服务器上，只在本地配置使用
