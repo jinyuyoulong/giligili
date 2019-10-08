@@ -3,32 +3,35 @@ package conf
 import (
 	"io/ioutil"
 	"strings"
+
 	yaml "gopkg.in/yaml.v2"
 )
+
 var Dictionary *map[interface{}]interface{}
 
 // LocalLocales 读取国际化文件
-func LoadLocales(path string)  error{
+func LoadLocales(path string) error {
 	data, err := ioutil.ReadFile(path)
-	if err != nil{
+	if err != nil {
 		return err
 	}
 
 	m := make(map[interface{}]interface{})
 	err = yaml.Unmarshal([]byte(data), &m)
-	if err != nil{
+	if err != nil {
 		return err
 	}
 
 	Dictionary = &m
 	return nil
 }
+
 // T 翻译
 func T(key string) string {
 	dic := *Dictionary
 	keys := strings.Split(key, ".")
-	for index,path := range keys{
-	//	如果达到最后一层，寻找目标翻译
+	for index, path := range keys {
+		//	如果达到最后一层，寻找目标翻译
 		if len(keys) == index+1 {
 			for k, v := range dic {
 
@@ -46,7 +49,7 @@ func T(key string) string {
 		for k, v := range dic {
 			if ks, ok := k.(string); ok {
 				if ks == path {
-					if dic, ok = v.(map[interface{}]interface{}); ok == false {
+					if dic, ok = v.(map[interface{}]interface{}); !ok {
 						return path
 					}
 				}

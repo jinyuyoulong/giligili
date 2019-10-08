@@ -19,7 +19,7 @@ func (service *UserLoginService) Login() (model.User, *serializer.Response) {
 		}
 	}
 
-	if user.CheckPassword(service.Password) == false {
+	if !user.CheckPassword(service.Password) {
 		return user, &serializer.Response{
 			Status: 40001,
 			Msg:    "账号或密码错误",
@@ -27,4 +27,3 @@ func (service *UserLoginService) Login() (model.User, *serializer.Response) {
 	}
 	return user, nil
 }
-

@@ -2,10 +2,12 @@ package tasks
 
 import (
 	"fmt"
-	"github.com/robfig/cron/v3"
+	"log"
 	"reflect"
 	"runtime"
 	"time"
+
+	"github.com/robfig/cron/v3"
 )
 
 var Cron *cron.Cron
@@ -24,6 +26,8 @@ func Run(job func() error) {
 		fmt.Printf("%s success:%dms\n", jobName, (to-from)/int64(time.Millisecond))
 	}
 }
+
+// CronJob 定时任务
 func CronJob() {
 	if Cron == nil {
 		//Cron = cron.New(cron.WithSeconds())
@@ -33,9 +37,13 @@ func CronJob() {
 	//Cron.AddFunc("*/1 * * * * *", func() {
 	//	Run(RestartDailyRank)
 	//})
-	Cron.AddFunc("0 0 * * *", func() {
+	_, err := Cron.AddFunc("0 0 * * *", func() {
 		Run(RestartDailyRank)
 	})
+	if err != nil {
+		log.Println(err.Error())
+	}
+
 	Cron.Start()
 
 	fmt.Println("crontab start...")
